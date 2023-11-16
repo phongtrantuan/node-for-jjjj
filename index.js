@@ -24,8 +24,7 @@ router.route("/test").get((request, response) => {
 router.route("/students").get((request, response) => {
   dboperations.getStudents().then((result) => {
     console.log(result);
-    response.json({ status: "ok" });
-    //  response.json(result[0]);
+    response.json(result[0]);
   });
 });
 
