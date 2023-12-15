@@ -1,6 +1,8 @@
 var Db = require("./dboperations");
 var Order = require("./order");
 const dboperations = require("./dboperations");
+const dbNtbOperations = require("./dbNtbOperations");
+const dbLtbOperations = require("./dbLtbOperations");
 
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -221,6 +223,124 @@ router.route("/donvi").get((request, response) => {
   dboperations.searchDonvi(search).then((result) => {
     console.log(result);
     response.json(result[0]);
+  });
+});
+
+router.route("/ntb").get((request, response) => {
+  dbNtbOperations.getNtb().then((result) => {
+    console.log("check", result[0]);
+    response.json(result[0]);
+  });
+});
+
+router.route("/addNtb").post((request, response) => {
+  const { Tennhom } = request.body;
+  console.log(request.body);
+  dbNtbOperations.addNtb(Tennhom).then((result) => {
+    console.log(result);
+    response.json(result);
+  });
+});
+router.route("/updateNtb").post((request, response) => {
+  const { IDNTB, Tennhom } = request.body;
+  console.log(request.body);
+  dbNtbOperations
+    .updateNtb(IDNTB, Tennhom)
+    .then((result) => {
+      console.log(result);
+      response.json(result);
+    });
+});
+router.route("/deleteNtb").post((request, response) => {
+  const { id } = request.body;
+  console.log(request.body);
+  dbNtbOperations.deleteNtb(id).then((result) => {
+    console.log(result);
+    response.json(result);
+  });
+});
+router.route("/ntb/search").get((request, response) => {
+  const { search } = request.query;
+  console.log("search", search);
+  dbNtbOperations.searchNtb(search).then((result) => {
+    console.log(result);
+    response.json(result[0]);
+  });
+});
+
+router.route("/ltb").get((request, response) => {
+  dbLtbOperations.getLtb().then((result) => {
+    console.log("check", result[0]);
+    response.json(result[0]);
+  });
+});
+
+router.route("/addLtb").post((request, response) => {
+  const { Tenloai, IDnhomtb } = request.body;
+  console.log(request.body);
+  dbLtbOperations.addLtb(Tenloai, IDnhomtb).then((result) => {
+    console.log(result);
+    response.json(result);
+  });
+});
+router.route("/updateLtb").post((request, response) => {
+  const { IDLTB, Tenloai, IDnhomtb } = request.body;
+  console.log(request.body);
+  dbLtbOperations
+    .updateLtb(IDLTB, Tenloai, IDnhomtb)
+    .then((result) => {
+      console.log(result);
+      response.json(result);
+    });
+});
+router.route("/deleteLtb").post((request, response) => {
+  const { id } = request.body;
+  console.log(request.body);
+  dbLtbOperations.deleteLtb(id).then((result) => {
+    console.log(result);
+    response.json(result);
+  });
+});
+router.route("/ltb/search").get((request, response) => {
+  const { search } = request.query;
+  console.log("search", search);
+  dbLtbOperations.searchLtb(search).then((result) => {
+    console.log(result);
+    response.json(result[0]);
+  });
+});
+
+router.route("/bctb").get((request, response) => {
+  dbBctbOperations.getBctb().then((result) => {
+    console.log("check", result[0]);
+    response.json(result[0]);
+  });
+});
+
+router.route("/addBctb").post((request, response) => {
+  const { Tendonvi, Tennhom, Thoigianbienche } = request.body;
+  console.log(request.body);
+  dbBctbOperations.addBctb(Tendonvi, Tennhom, Thoigianbienche).then((result) => {
+    console.log(result);
+    response.json(result);
+  });
+});
+router.route("/updateBctb").post((request, response) => {
+  const { Tendonvi, Tennhom, Thoigianbienche } = request.body;
+  console.log(request.body);
+  dbBctbOperations
+    .updateBctb(Tendonvi, Tennhom, Thoigianbienche)
+    .then((result) => {
+      console.log(result);
+      response.json(result);
+    });
+});
+router.route("/deleteBctb").post((request, response) => {
+  const { Tendonvi, Tennhom } = request.body;
+  console.log(request.body);
+  dbBctbOperations.deleteBctb(Tendonvi, Tennhom).then((result) => {
+    console.log(result);
+    response.json(result);
   });
 });
 

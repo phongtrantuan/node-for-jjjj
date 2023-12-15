@@ -173,8 +173,8 @@ async function updateCanbo(
       .input("IDTaikhoan", sql.Int, IDTaikhoan)
       .input("IDDonvi", sql.Int, IDDonvi)
       .execute("Suacanbo");
-      console.log("success in")
-      console.log(Ten)
+    console.log("success in")
+    console.log(Ten)
     return updateCanbo.recordsets;
   } catch (err) {
     console.log(err);
@@ -253,15 +253,15 @@ async function updateDonvi(
 ) {
   try {
     let pool = await sql.connect(config);
-    let updateDonvi= await pool
+    let updateDonvi = await pool
       .request()
       .input("IDDV", sql.Int, IDDV)
       .input("Tendonvi", sql.NVarChar, Tendonvi)
       .input("Loaidonvi", sql.NVarChar, Loaidonvi)
       .input("IDDonvicha", sql.Int, IDDonvicha)
       .execute("Suadonvi");
-      console.log("success in")
-      console.log(Tendonvi)
+    console.log("success in")
+    console.log(Tendonvi)
     return updateDonvi.recordsets;
   } catch (err) {
     console.log(err);
