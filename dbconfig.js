@@ -1,15 +1,15 @@
 const config = {
-  user: "login",
-  password: "login",
+  user: "chichi",
+  password: "chichi",
   server: "localhost",
-  database: "test",
+  database: "BTL_clientserver",
   options: {
     encrypt: false,
     trustedconnection: true,
     enableArithAbort: true,
     instancename: "SQLEXPRESS",
   },
-  port: 49965,
+  port: 1433,
 };
 
 module.exports = config;
