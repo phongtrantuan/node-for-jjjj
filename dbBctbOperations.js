@@ -1,37 +1,54 @@
 var config = require("./dbconfig");
 const sql = require("mssql");
 
-async function getBctb() {
+async function getBctb(
+  Tendonvi,
+  Tennhom,
+) {
   try {
     let pool = await sql.connect(config);
-    let Bctbs = await pool.request().query("SELECT * from DONVI_NHOMTB");
+    let Bctbs = await pool
+      .request()
+      .input("TenDonVi", sql.NVarChar, Tendonvi)
+      .input("TenNhomTB", sql.NVarChar, Tennhom)
+      .execute("ThongtinBiencheDonViNhomTB");
     return Bctbs.recordsets;
   } catch (error) {
     console.log(error);
   }
 }
 
-// async function searchBctb(search) {
-//   try {
-//     let pool = await sql.connect(config);
-//     let searchBctb = await pool
-//       .request()
-//       .input("SearchTerm", sql.NVarChar, search)
-//       .execute("Timkiemloaitrangbi");
+async function getTendonvi() {
+  try {
+    let pool = await sql.connect(config);
+    let tendonvis = await pool
+      .request()
+      .execute("Tendonvi");
+    return tendonvis.recordsets;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-//     return searchBctb.recordsets;
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
+async function getTennhomtrangbi() {
+  try {
+    let pool = await sql.connect(config);
+    let tennhomtrangbis = await pool
+      .request()
+      .execute("Tennhomtrangbi");
+    return tennhomtrangbis.recordsets;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 async function deleteBctb(Tendonvi, Tennhom) {
   try {
     let pool = await sql.connect(config);
     let Bctb = await pool
       .request()
-      .input("Tendonvi", sql.Int, Tendonvi)
-      .input("Tennhom", sql.Int, Tennhom)
+      .input("Tendonvi", sql.NVarChar, Tendonvi)
+      .input("Tennhom", sql.NVarChar, Tennhom)
       .execute("XoaDonviNhomtb");
 
     return Bctb.recordsets;
@@ -49,10 +66,10 @@ async function updateBctb(
     let pool = await sql.connect(config);
     let updateBctb = await pool
       .request()
-      .input("Tendonvi", sql.Int, Tendonvi)
+      .input("Tendonvi", sql.NVarChar, Tendonvi)
       .input("Tennhom", sql.NVarChar, Tennhom)
       .input("thoigianbienche", sql.NVarChar, Thoigianbienche)
-      .execute("Sualoaithietbi");
+      .execute("SuaDonviNhomtb");
 
     return updateBctb.recordsets;
   } catch (err) {
@@ -69,7 +86,7 @@ async function addBctb(
     let pool = await sql.connect(config);
     let insertBctb = await pool
       .request()
-      .input("Tendonvi", sql.Int, Tendonvi)
+      .input("Tendonvi", sql.NVarChar, Tendonvi)
       .input("Tennhom", sql.NVarChar, Tennhom)
       .input("thoigianbienche", sql.NVarChar, Thoigianbienche)
       .execute("BiencheDonviNhomtb");
@@ -81,7 +98,8 @@ async function addBctb(
 
 module.exports = {
   getBctb: getBctb,
-  // searchBctb: searchBctb,
+  getTendonvi: getTendonvi,
+  getTennhomtrangbi: getTennhomtrangbi,
   addBctb: addBctb,
   updateBctb: updateBctb,
   deleteBctb: deleteBctb,

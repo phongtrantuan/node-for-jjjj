@@ -3,6 +3,7 @@ var Order = require("./order");
 const dboperations = require("./dboperations");
 const dbNtbOperations = require("./dbNtbOperations");
 const dbLtbOperations = require("./dbLtbOperations");
+const dbBctbOperations = require("./dbBctbOperations");
 
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -311,7 +312,22 @@ router.route("/ltb/search").get((request, response) => {
 });
 
 router.route("/bctb").get((request, response) => {
-  dbBctbOperations.getBctb().then((result) => {
+  const { Tendonvi, Tennhom } = request.query;
+  dbBctbOperations.getBctb(Tendonvi, Tennhom).then((result) => {
+    console.log("check", result[0]);
+    response.json(result[0]);
+  });
+});
+
+router.route("/bctb/Tendonvi").get((request, response) => {
+  dbBctbOperations.getTendonvi().then((result) => {
+    console.log("check", result[0]);
+    response.json(result[0]);
+  });
+});
+
+router.route("/bctb/Tennhomtrangbi").get((request, response) => {
+  dbBctbOperations.getTennhomtrangbi().then((result) => {
     console.log("check", result[0]);
     response.json(result[0]);
   });
@@ -343,6 +359,8 @@ router.route("/deleteBctb").post((request, response) => {
     response.json(result);
   });
 });
+
+
 
 var port = process.env.PORT || 3001;
 app.listen(port);
